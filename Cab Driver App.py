@@ -23,7 +23,8 @@ def requests(location):
     else:
         num_requests = np.random.poisson(8)
     num_requests = min(10, max(1, num_requests))
-    possible_actions = random.sample(action_space[:-1], num_requests)
+    filtered_actions = [a for a in action_space[:-1] if a[0] == location]
+    possible_actions = random.sample(filtered_actions, min(len(filtered_actions), num_requests))
     possible_actions.append((0, 0))
     return possible_actions
 def best_action(state, possible_actions_idx):
